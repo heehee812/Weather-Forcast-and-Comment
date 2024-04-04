@@ -33,17 +33,24 @@ export default class Main extends React.Component {
     render() {
         return (
             <div className='main bg-faded'>
-                <div className='container'></div>
-                <Navbar color="faded" light expand="md">
-                    <NavbarBrand className='text-info' href="/">WeatherMood</NavbarBrand>
-                    <NavbarToggler onClick={this.handleNavbarToggle} />
-                    <Collapse isOpen={this.state.navbarToggle} navbar>
-                        <Nav navbar>
-                            <NavItem>Today</NavItem>
-                            <NavItem>Forecast</NavItem>
-                        </Nav>
-                    </Collapse>
-                </Navbar>
+                <div className='container'>
+                    <Navbar color="faded" light expand="md">
+                        <NavbarBrand className='text-info' href="/">WeatherMood</NavbarBrand>
+                        <NavbarToggler onClick={this.handleNavbarToggle} />
+                        <Collapse isOpen={this.state.navbarToggle} navbar>
+                            <Nav navbar>
+                                <NavItem>Today</NavItem>
+                                <NavItem>Forecast</NavItem>
+                            </Nav>
+                            <div className='search ml-auto'>
+                                <Input className='ml-auto' type='text' innerRef={this.searchEl} placeholder='Search' onKeyPress={this.handleSearchKeyPress} innerRef={e => this.searchEl = e}></Input>{
+                                    this.state.searchText &&
+                                    <i className='navbar-text fa fa-times' onClick={this.handleClearSearch}></i>
+                                }
+                            </div>
+                        </Collapse>
+                    </Navbar>
+                </div>
             </div>
         );
     }
