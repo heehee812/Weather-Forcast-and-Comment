@@ -60,4 +60,20 @@ export default class Main extends React.Component {
             navbarToggle: !prevState.navbarToggle
         }));
     }
+
+    handleSearchKeyPress(e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode === 13){
+            this.setState({
+                searchText: e.target.value
+            });
+        }
+    }
+
+    handleClearSearch() {
+        this.setState({
+            searchText: ''
+        });
+        this.searchEl.value = '';
+    }
 }
