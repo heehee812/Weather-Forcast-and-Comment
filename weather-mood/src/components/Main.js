@@ -49,7 +49,7 @@ export default class Main extends React.Component {
                             <Collapse isOpen={this.state.navbarToggle} navbar>
                                 <Nav navbar>
                                     <NavItem>
-                                        <NavLink tag={Link} to='/today'>Today</NavLink>
+                                        <NavLink tag={Link} to='/'>Today</NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <NavLink tag={Link} to='/forecast'>Forecast</NavLink>
@@ -71,9 +71,9 @@ export default class Main extends React.Component {
                         <Route exact path="/forecast" render={() => (
                             <Forecast unit={this.state.unit} onUnitChange={this.handleUnitChange} />
                         )} /> */}
-                        <Route path="/" element={<p>Home</p>}/>
-                        <Route path="/today" element={<Today/>}/>
-                        <Route path="/forecast" element={<Forecast/>}/>
+                        {/* <Route exact path="/" element={<p>Home</p>}/> */}
+                        <Route exact path="/" element={<Today unit={this.state.unit} searchText={this.state.searchText} onUnitChange={this.handleUnitChange}/>}/>
+                        <Route exact path="/forecast" element={<Forecast unit={this.state.unit} onUnitChange={this.handleUnitChange}/>}/>
                     </Routes>
 
                     <div className='footer'>
