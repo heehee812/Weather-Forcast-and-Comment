@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Alert } from 'reactstrap';
 
+import WeatherDisplay from 'components/WeatherDisplay.jsx';
 import WeatherForm from 'components/WeatherForm.jsx';
 import { getWeather } from 'api/open-weather-map.js';
 
@@ -44,7 +45,8 @@ export default class Today extends React.Component {
         return (
             <div className="today">
                 <div className='weather'>
-                    <WeatherForm city={this.state.city} unit={this.props.unit} onQuery={this.handleFormQuery}/>
+                    <WeatherDisplay {...this.state} />
+                    <WeatherForm city={this.state.city} unit={this.props.unit} onQuery={this.handleFormQuery} />
                 </div>
                 <br></br>
                 <div className='posts'>
