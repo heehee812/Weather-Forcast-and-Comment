@@ -1,6 +1,8 @@
 import React from 'react';
 
 import ForecastDisplay from 'components/ForecastDisplay.jsx';
+import {getForecast} from 'api/open-weather-map.js';
+import './weather.css';
 import './Forecast.css';
 
 export default class Forecast extends React.Component {
@@ -28,6 +30,17 @@ export default class Forecast extends React.Component {
         };
 
     }
+
+    componentDidMount() {
+        this.getForecast('Hsinchu', 'metric');
+    }
+
+    componentWillUnmount() {
+        if (this.state.loading) {
+            cancelForecast();
+        }
+    }
+
     render() {
         const { unit } = this.props;
         return (
@@ -42,4 +55,39 @@ export default class Forecast extends React.Component {
             </div>
         );
     }
+
+    getForecast(city, unit){
+        this.setState({
+            loading: true,
+            masking: true,
+            city: city // set city state immediately to prevent input text (in WeatherForm) from blinking;
+        }, () => { // called back after setState completes
+            getForecast(city, unit).then(weather => {
+                this.setState({
+                    ...weather,
+                    loading: false
+                }, () => this.notifyUnitChange(unit));
+            }).catch(err => {
+                console.error('Error getting weather', err);
+
+                this.setState({
+                ...Forecast.getInitWeatherState(unit),
+                    loading: false
+                }, () => this.notifyUnitChange(unit));
+            });
+        });
+
+        setTimeout(() => {
+            this.setState({
+                masking: false
+            });
+        }, 600);
+    }
+
+    notifyUnitChange(unit) {
+        if (this.props.units !== unit) {
+            this.props.onUnitChange(unit);
+        }
+    }
+
 }

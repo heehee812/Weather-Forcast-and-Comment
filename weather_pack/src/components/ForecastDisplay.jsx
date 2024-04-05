@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import './WeatherDisplay.css';
+import './WeatherDisplay.css';
 
 export default class ForecastDisplay extends React.Component {
     static propTypes = {
