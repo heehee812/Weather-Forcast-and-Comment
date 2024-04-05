@@ -24,7 +24,26 @@ export default class PostList extends React.Component {
     }
 
     render() {
-        return (<p>Post List</p>);
+        const { posts } = this.props;
+
+        let children = (
+            <ListGroupItem className='empty d-flex justify-content-center align-items-center'>
+                <div className='empty-text'>No post here.<br />Go add some posts.</div>
+            </ListGroupItem>
+        );
+        if (posts.length) {
+            children = posts.map(p => (
+                <ListGroupItem key={p.id} action>
+                    <PostItem {...p} onVote={this.handleVote} />
+                </ListGroupItem>
+            ));
+        }
+
+        return (
+            <div className='post-list'>
+                <ListGroup>{children}</ListGroup>
+            </div>
+        );
     }
 
     handleVote(id, mood) {

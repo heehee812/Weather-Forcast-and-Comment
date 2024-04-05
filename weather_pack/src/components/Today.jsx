@@ -7,7 +7,7 @@ import WeatherForm from 'components/WeatherForm.jsx';
 import PostForm from 'components/PostForm.jsx';
 import PostList from 'components/PostList.jsx';
 import { getWeather } from 'api/open-weather-map.js';
-import {listPosts, createPost, createVote} from 'api/posts.js';
+import { listPosts, createPost, createVote } from 'api/posts.js';
 
 import './weather.css';
 import './Today.css';
@@ -42,11 +42,33 @@ export default class Today extends React.Component {
 
         this.handleFormQuery = this.handleFormQuery.bind(this);
         this.handleCreatePost = this.handleCreatePost.bind(this);
+        this.handleCreateVote = this.handleCreateVote.bind(this);
+    }
+
+    componentDidMount() {
+        this.getWeather('Hsinchu', 'metric');
+        this.listPosts(this.props.searchText);
+    }
+
+    componentWillUnmount() {
+        if (this.state.loading) {
+            cancelWeather();
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.searchText !== this.props.searchText) {
+            this.listPosts(nextProps.searchText);
+        }
     }
 
     render() {
         const { unit } = this.props;
-        const {group, city, masking, posts, postLoading} = this.state;
+        const { group, city, masking, posts, postLoading } = this.state;
+
+        document.body.className = "weather-bg "+this.state.group;
+        document.querySelector('.weather-bg .mask').className = `mask ${masking ? 'masking' : ''}`;
+        
         return (
             <div className="today">
                 <div className='weather'>
@@ -55,8 +77,8 @@ export default class Today extends React.Component {
                 </div>
                 <br></br>
                 <div className='posts'>
-                    <PostForm onPost={this.handleCreatePost}/>
-                    <PostList posts={posts}/>{
+                    <PostForm onPost={this.handleCreatePost} />
+                    <PostList posts={posts} onVote={this.handleCreateVote} />{
                         postLoading &&
                         <Alert color='warning' className='loading'>Loading...</Alert>
                     }
@@ -93,6 +115,26 @@ export default class Today extends React.Component {
         }, 600);
     }
 
+    listPosts(searchText) {
+        this.setState({
+            postLoading: true
+        }, () => {
+            listPosts(searchText).then(posts => {
+                this.setState({
+                    posts,
+                    postLoading: false
+                });
+            }).catch(err => {
+                console.error('Error listing posts', err);
+
+                this.setState({
+                    posts: [],
+                    postLoading: false
+                });
+            });
+        });
+    }
+
     handleFormQuery(city, unit) {
         this.getWeather(city, unit);
     }
@@ -103,11 +145,20 @@ export default class Today extends React.Component {
         }
     }
 
+
     handleCreatePost(mood, text) {
         createPost(mood, text).then(() => {
             this.listPosts(this.props.searchText);
         }).catch(err => {
             console.error('Error creating posts', err);
+        });
+    }
+
+    handleCreateVote(id, mood) {
+        createVote(id, mood).then(() => {
+            this.listPosts(this.props.searchText);
+        }).catch(err => {
+            console.error('Error creating vote', err);
         });
     }
 }
