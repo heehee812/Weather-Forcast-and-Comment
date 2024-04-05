@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Alert } from 'reactstrap';
 import './Today.css';
 
 export default class Today extends React.Component {
@@ -22,9 +23,12 @@ export default class Today extends React.Component {
     }
     render() {
         const { unit } = this.props;
-        const { group, city, masking, posts, postLoading } = this.state;
         return (
             <div className="today">
+                <br></br>
+                <div className='posts'>
+                    <Alert color='warning' className='loading'>Loading...</Alert>
+                </div>
                 <p>today is gonna be a good day to you!</p>
             </div>
         );
