@@ -5,6 +5,7 @@ import { Alert } from 'reactstrap';
 import WeatherDisplay from 'components/WeatherDisplay.jsx';
 import WeatherForm from 'components/WeatherForm.jsx';
 import PostForm from 'components/PostForm.jsx';
+import PostList from 'components/PostList.jsx';
 import { getWeather } from 'api/open-weather-map.js';
 
 import './weather.css';
@@ -52,7 +53,9 @@ export default class Today extends React.Component {
                 <br></br>
                 <div className='posts'>
                     <PostForm />
-                    <Alert color='warning' className='loading'>Loading...</Alert>
+                    <PostList/>{
+                        <Alert color='warning' className='loading'>Loading...</Alert>
+                    }
                 </div>
             </div>
         );
