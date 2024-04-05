@@ -2,6 +2,8 @@
   "name": "weather-mood",
   "version": "0.1.0",
   "private": true,
+  "description": "WeatherMood allows people to share moods under different weather conditions.",
+  "main": "src/index.jsx",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
