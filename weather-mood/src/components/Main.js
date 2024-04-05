@@ -72,8 +72,8 @@ export default class Main extends React.Component {
                             <Forecast unit={this.state.unit} onUnitChange={this.handleUnitChange} />
                         )} /> */}
                         <Route path="/" element={<p>Home</p>}/>
-                        <Route path="/today" element={<p>Today</p>}/>
-                        <Route path="/forecast" element={<p>Forecast</p>}/>
+                        <Route path="/today" element={<Today/>}/>
+                        <Route path="/forecast" element={<Forecast/>}/>
                     </Routes>
 
                     <div className='footer'>
