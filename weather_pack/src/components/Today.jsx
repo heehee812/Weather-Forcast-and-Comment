@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Alert } from 'reactstrap';
+import {Alert} from 'reactstrap';
 
 import WeatherDisplay from 'components/WeatherDisplay.jsx';
 import WeatherForm from 'components/WeatherForm.jsx';
 import PostForm from 'components/PostForm.jsx';
 import PostList from 'components/PostList.jsx';
-import { getWeather } from 'api/open-weather-map.js';
-import { listPosts, createPost, createVote } from 'api/posts.js';
+import {getWeather} from 'api/open-weather-map.js';
+import {listPosts, createPost, createVote} from 'api/posts.js';
 
 import './weather.css';
 import './Today.css';
@@ -63,21 +63,21 @@ export default class Today extends React.Component {
     }
 
     render() {
-        const { unit } = this.props;
-        const { group, city, masking, posts, postLoading } = this.state;
+        const {unit} = this.props;
+        const {group, city, masking, posts, postLoading} = this.state;
 
         document.body.className = "weather-bg "+this.state.group;
         document.querySelector('.weather-bg .mask').className = `mask ${masking ? 'masking' : ''}`;
-        
+
         return (
             <div className="today">
                 <div className='weather'>
-                    <WeatherDisplay {...this.state} />
-                    <WeatherForm city={this.state.city} unit={this.props.unit} onQuery={this.handleFormQuery} />
+                    <WeatherDisplay {...this.state}/>
+                    <WeatherForm city={this.state.city} unit={this.props.unit} onQuery={this.handleFormQuery}/>
                 </div>
                 <br></br>
                 <div className='posts'>
-                    <PostForm onPost={this.handleCreatePost} />
+                    <PostForm onPost={this.handleCreatePost}/>
                     <PostList posts={posts} onVote={this.handleCreateVote} />{
                         postLoading &&
                         <Alert color='warning' className='loading'>Loading...</Alert>
@@ -144,7 +144,7 @@ export default class Today extends React.Component {
             this.props.onUnitChange(unit);
         }
     }
-
+    
 
     handleCreatePost(mood, text) {
         createPost(mood, text).then(() => {
