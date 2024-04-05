@@ -32,6 +32,8 @@ export default class WeatherForm extends React.Component {
             unit: props.unit
         };
 
+        this.handleMetricUnit = this.handleMetricUnit.bind(this);
+        this.handleImperialUnit = this.handleImperialUnit.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTempToggle = this.handleTempToggle.bind(this);
     }
@@ -44,11 +46,23 @@ export default class WeatherForm extends React.Component {
                         <DropdownToggle type='button' caret color="secondary">
                             &ordm; {WeatherForm.getUnitString(this.state.unit)}
                         </DropdownToggle>
+                        <DropdownMenu>
+                            <DropdownItem type='button' onClick={this.handleMetricUnit}>&ordm; C</DropdownItem>
+                            <DropdownItem type='button' onClick={this.handleImperialUnit}>&ordm; F</DropdownItem>
+                        </DropdownMenu>
                     </ButtonDropdown>
                     <Button color="info">Check</Button>
                 </Form>
             </div>
         );
+    }
+
+    handleMetricUnit(e) {
+        this.setState({unit: 'metric'});
+    }
+
+    handleImperialUnit(e) {
+        this.setState({unit: 'imperial'});
     }
 
     handleSubmit(e) {
