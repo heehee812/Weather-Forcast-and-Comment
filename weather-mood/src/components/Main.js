@@ -65,15 +65,12 @@ export default class Main extends React.Component {
                         </Navbar>
                     </div>
                     <Routes>
-                        {/* <Route exact path="/" render={() => (
+                        <Route exact path="/" element={
                             <Today unit={this.state.unit} searchText={this.state.searchText} onUnitChange={this.handleUnitChange} />
-                        )} />
-                        <Route exact path="/forecast" render={() => (
+                        } />
+                        <Route exact path="/forecast" element={
                             <Forecast unit={this.state.unit} onUnitChange={this.handleUnitChange} />
-                        )} /> */}
-                        {/* <Route exact path="/" element={<p>Home</p>}/> */}
-                        <Route exact path="/" element={<Today unit={this.state.unit} searchText={this.state.searchText} onUnitChange={this.handleUnitChange}/>}/>
-                        <Route exact path="/forecast" element={<Forecast unit={this.state.unit} onUnitChange={this.handleUnitChange}/>}/>
+                        } />
                     </Routes>
 
                     <div className='footer'>
