@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Main from './components/Main.js';
+import Main from './components/Main.jsx';
 // import Today from './components/Today.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
