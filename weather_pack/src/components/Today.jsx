@@ -7,6 +7,7 @@ import WeatherForm from 'components/WeatherForm.jsx';
 import PostForm from 'components/PostForm.jsx';
 import PostList from 'components/PostList.jsx';
 import { getWeather } from 'api/open-weather-map.js';
+import {listPosts, createPost, createVote} from 'api/posts.js';
 
 import './weather.css';
 import './Today.css';
@@ -40,10 +41,12 @@ export default class Today extends React.Component {
         };
 
         this.handleFormQuery = this.handleFormQuery.bind(this);
+        this.handleCreatePost = this.handleCreatePost.bind(this);
     }
 
     render() {
         const { unit } = this.props;
+        const {group, city, masking, posts, postLoading} = this.state;
         return (
             <div className="today">
                 <div className='weather'>
@@ -52,8 +55,9 @@ export default class Today extends React.Component {
                 </div>
                 <br></br>
                 <div className='posts'>
-                    <PostForm />
-                    <PostList/>{
+                    <PostForm onPost={this.handleCreatePost}/>
+                    <PostList posts={posts}/>{
+                        postLoading &&
                         <Alert color='warning' className='loading'>Loading...</Alert>
                     }
                 </div>
@@ -97,5 +101,13 @@ export default class Today extends React.Component {
         if (this.props.units !== unit) {
             this.props.onUnitChange(unit);
         }
+    }
+
+    handleCreatePost(mood, text) {
+        createPost(mood, text).then(() => {
+            this.listPosts(this.props.searchText);
+        }).catch(err => {
+            console.error('Error creating posts', err);
+        });
     }
 }
