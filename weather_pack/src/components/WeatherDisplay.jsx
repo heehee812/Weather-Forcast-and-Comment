@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import './WeatherDisplay.css';
 
-import './WeatherForm.css';
-
 export default class WeatherDisplay extends React.Component {
     static propTypes = {
         masking: PropTypes.bool,
@@ -21,7 +19,18 @@ export default class WeatherDisplay extends React.Component {
 
     render() {
         return (
-            <p>Weather Display~~~~</p>
+            <div className={`weather-display ${this.props.masking
+                ? 'masking'
+                : ''}`}>
+                <img src={`images/w-${this.props.group}.png`}/>
+                <p className='description'>{this.props.description}</p>&nbsp;
+                <h1 className='temp'>
+                    <span className='display-3'>{this.props.temp.toFixed(0)}&ordm;</span>
+                    &nbsp;{(this.props.unit === 'metric')
+                        ? 'C'
+                        : 'F'}
+                </h1>
+            </div>
         );
     }
 }
