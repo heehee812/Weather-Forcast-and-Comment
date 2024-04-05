@@ -33,15 +33,18 @@ export default class WeatherForm extends React.Component {
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleTempToggle = this.handleTempToggle.bind(this);
     }
 
     render() {
         return (
             <div className='weather-form'>
                 <Form className='form-inline justify-content-center' onSubmit={this.handleSubmit}>
-                    
+                    <ButtonDropdown type='button' isOpen={this.state.tempToggle} toggle={this.handleTempToggle}>
+
+                    </ButtonDropdown>
+                    <Button color="info">Check</Button>
                 </Form>
-                <p>Weather Formmmmmm</p>
             </div>
         );
     }
@@ -55,5 +58,11 @@ export default class WeatherForm extends React.Component {
         } else {
             this.state.inputEl = this.props.city;
         }
+    }
+
+    handleTempToggle(e) {
+        this.setState((prevState, props) => ({
+            tempToggle: !prevState.tempToggle
+        }));
     }
 }
