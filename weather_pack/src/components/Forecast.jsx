@@ -32,7 +32,6 @@ export default class Forecast extends React.Component {
             masking: true
         };
 
-        // TODO
         this.handleFormQueryForecast= this.handleFormQueryForecast.bind(this);
     }
 
