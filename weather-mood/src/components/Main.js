@@ -19,6 +19,8 @@ import {
 } from 'reactstrap';
 
 import Today from './Today.js'
+import Forecast from './Forecast.js'
+
 import './Main.css';
 
 export default class Main extends React.Component {
@@ -47,9 +49,11 @@ export default class Main extends React.Component {
                             <Collapse isOpen={this.state.navbarToggle} navbar>
                                 <Nav navbar>
                                     <NavItem>
-                                        <NavLink>Today</NavLink>
+                                        <NavLink tag={Link} to='/'>Today</NavLink>
                                     </NavItem>
-                                    <NavItem>Forecast</NavItem>
+                                    <NavItem>
+                                        <NavLink tag={Link} to='/forecast'>Forecast</NavLink>
+                                    </NavItem>
                                 </Nav>
                                 <div className='search ml-auto'>
                                     <Input className='ml-auto' type='text' innerRef={this.searchEl} placeholder='Search' onKeyPress={this.handleSearchKeyPress} innerRef={e => this.searchEl = e}></Input>{
@@ -62,9 +66,13 @@ export default class Main extends React.Component {
                     </div>
                     <Routes>
                         <Route exact path="/" render={() => (
-                            <Today unit={this.state.unit} searchText={this.state.searchText} onUnitChange={this.handleUnitChange}/>
+                            <Today unit={this.state.unit} searchText={this.state.searchText} onUnitChange={this.handleUnitChange} />
+                        )} />
+                        <Route exact path="/forecast" render={() => (
+                            <Forecast unit={this.state.unit} onUnitChange={this.handleUnitChange} />
                         )} />
                     </Routes>
+
                     <div className='footer'>
                         Chencharrr
                     </div>
