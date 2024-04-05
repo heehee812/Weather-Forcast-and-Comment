@@ -32,16 +32,25 @@ export default class WeatherForm extends React.Component {
             unit: props.unit
         };
 
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleMetricUnit = this.handleMetricUnit.bind(this);
         this.handleImperialUnit = this.handleImperialUnit.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTempToggle = this.handleTempToggle.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            inputValue: nextProps.city,
+            unit: nextProps.unit
+        });
+    }
+
     render() {
         return (
             <div className='weather-form'>
                 <Form className='form-inline justify-content-center' onSubmit={this.handleSubmit}>
+                    <Input type='text' name='city' innerRef={el => {this.inputEl = el}} value={this.state.inputValue} onChange={this.handleInputChange}></Input>&nbsp;
                     <ButtonDropdown type='button' isOpen={this.state.tempToggle} toggle={this.handleTempToggle}>
                         <DropdownToggle type='button' caret color="secondary">
                             &ordm; {WeatherForm.getUnitString(this.state.unit)}
@@ -50,11 +59,15 @@ export default class WeatherForm extends React.Component {
                             <DropdownItem type='button' onClick={this.handleMetricUnit}>&ordm; C</DropdownItem>
                             <DropdownItem type='button' onClick={this.handleImperialUnit}>&ordm; F</DropdownItem>
                         </DropdownMenu>
-                    </ButtonDropdown>
+                    </ButtonDropdown>&nbsp;
                     <Button color="info">Check</Button>
                 </Form>
             </div>
         );
+    }
+
+    handleInputChange(e) {
+        this.setState({inputValue: e.target.value});
     }
 
     handleMetricUnit(e) {
