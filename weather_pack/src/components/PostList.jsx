@@ -5,6 +5,9 @@ import {
     ListGroupItem
 } from 'reactstrap';
 
+import PostItem from 'components/PostItem.jsx';
+import {createVote} from 'api/posts.js';
+
 import './PostList.css';
 
 export default class PostList extends React.Component {
@@ -24,7 +27,7 @@ export default class PostList extends React.Component {
     }
 
     render() {
-        const { posts } = this.props;
+        const {posts} = this.props;
 
         let children = (
             <ListGroupItem className='empty d-flex justify-content-center align-items-center'>
